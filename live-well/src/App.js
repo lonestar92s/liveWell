@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Property from './Property/Property'
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    property: []
+  }
+
+ getProperty = async () => {
+
+    try {
+      const property = await fetch('http//localhost:9000/property');
+      const propertyJson = await property.json();
+      this.setState({property: propertyJson});
+      return propertyJson
+    } catch (err) {
+      console.log(err, 'error in catch block')
+      return err
+  }
+
+}
+
+componentDidMount(){
+    this.getProperty().then((data) => console.log(data,'New properties'));
+  } 
+
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="app">
+        <div className="propertyContainer">
+          <h1>Property</h1>
+          <Property property={this.state.property} />
+        </div>
       </div>
     );
   }
 }
+          
 
 export default App;
