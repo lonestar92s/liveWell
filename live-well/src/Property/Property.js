@@ -1,22 +1,18 @@
 import React from 'react'
+import './Property.css'
 
 
 
 const Property = (props) => {
+
     console.log(props)
-    const propertyList = props.property.map((property, index) => {
-        return <li key={index}> {property}</li>
-    })
-    
-    
     return (
         
         <div id="info">
         <h4>Your New Home</h4> 
-         <ul>{propertyList}</ul>
+        <p>{props.address}, {props.city}, {props.state}, {props.zipcode}</p>
          </div>
     )
-
 }
 
 
