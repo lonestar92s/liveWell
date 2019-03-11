@@ -8,19 +8,22 @@ class App extends Component {
         city: '',
         state: '',
         zipcode: '',
+        estimate: '',
         imageUrl: ''
 
     }
 
     getProperty = async () => {
         try {
-            const property = await fetch('http://localhost:9000/property/');
+            const property = await fetch('http://localhost:9000/property');
             const propertyJson = await property.json()
             this.setState({
                 address: propertyJson.response.address.street[0],
                 city: propertyJson.response.address.city[0],
                 state: propertyJson.response.address.state[0],
-                zipcode: propertyJson.response.address.zipcode[0]
+                zipcode: propertyJson.response.address.zipcode[0],
+                estimate: propertyJson.response.zestimate.amount[0]._
+
 
             })
             return propertyJson
@@ -37,7 +40,25 @@ class App extends Component {
             const property = await fetch('http://localhost:9000/property/pic');
             const propertyJson = await property.json()
             this.setState({
-                imageUrl: propertyJson.
+                imageUrl: propertyJson.response.images.image[0].url[0],
+                
+            })
+            return propertyJson
+
+        } catch (err) {
+            console.log(err, 'error in catch block')
+            return err
+        }
+
+    }
+      //search 
+        searchProperty = async () => {
+        try {
+            const property = await fetch('http://localhost:9000/property/search');
+            const propertyJson = await property.json()
+            this.setState({
+                searchAddress: propertyJson.response.results.result[0].address[0].street[0],
+                
             })
             return propertyJson
 
@@ -51,6 +72,7 @@ class App extends Component {
     componentDidMount() {
         this.getProperty().then((data) => console.log(data, 'New properties'));
         this.getImage().then((data) => console.log(data, 'Images'));
+        this.searchProperty().then((data) => console.log(data, 'search results'));
     }
 
 
@@ -64,7 +86,8 @@ class App extends Component {
           city={this.state.city} 
           state={this.state.state} 
           zipcode={this.state.zipcode}
-          image />
+          estimate={this.state.estimate}
+          image={this.state.imageUrl} />
         </div>
       </div>
         );
