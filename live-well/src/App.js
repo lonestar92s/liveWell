@@ -13,27 +13,27 @@ class App extends Component {
 
     }
 
-    getProperty = async () => {
-        try {
-            const property = await fetch('http://localhost:9000/property');
-            const propertyJson = await property.json()
-            this.setState({
-                address: propertyJson.response.address.street[0],
-                city: propertyJson.response.address.city[0],
-                state: propertyJson.response.address.state[0],
-                zipcode: propertyJson.response.address.zipcode[0],
-                estimate: propertyJson.response.zestimate.amount[0]._
+    // getProperty = async () => {
+    //     try {
+    //         const property = await fetch('http://localhost:9000/property');
+    //         const propertyJson = await property.json()
+    //         this.setState({
+    //             address: propertyJson.response.address.street[0],
+    //             city: propertyJson.response.address.city[0],
+    //             state: propertyJson.response.address.state[0],
+    //             zipcode: propertyJson.response.address.zipcode[0],
+    //             estimate: propertyJson.response.zestimate.amount[0]._
 
 
-            })
-            return propertyJson
+    //         })
+    //         return propertyJson
 
-        } catch (err) {
-            console.log(err, 'error in catch block')
-            return err
-        }
+    //     } catch (err) {
+    //         console.log(err, 'error in catch block')
+    //         return err
+    //     }
 
-    }
+    // }
 
     getImage = async () => {
         try {
@@ -41,7 +41,7 @@ class App extends Component {
             const propertyJson = await property.json()
             this.setState({
                 imageUrl: propertyJson.response.images.image[0].url[0],
-                
+
             })
             return propertyJson
 
@@ -51,14 +51,29 @@ class App extends Component {
         }
 
     }
-      //search 
-        searchProperty = async () => {
+    //search 
+    searchProperty = async (address, citystatezip) => {
         try {
-            const property = await fetch('http://localhost:9000/property/search');
+            const property = await fetch('http://localhost:9000/property/search', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    address,
+                    citystatezip 
+                    
+                })
+            });
             const propertyJson = await property.json()
             this.setState({
-                searchAddress: propertyJson.response.results.result[0].address[0].street[0],
-                
+                address: propertyJson.response.results.result[0].address[0].street[0],
+                city: propertyJson.response.results.result[0].address[0].city[0],
+                state: propertyJson.response.results.result[0].address[0].state[0],
+                zipcode: propertyJson.response.results.result[0].address[0].zipcode[0],
+                estimate: propertyJson.response.results.result[0].zestimate[0].amount[0]._
+
             })
             return propertyJson
 
@@ -69,11 +84,7 @@ class App extends Component {
 
     }
 
-    componentDidMount() {
-        this.getProperty().then((data) => console.log(data, 'New properties'));
-        this.getImage().then((data) => console.log(data, 'Images'));
-        this.searchProperty().then((data) => console.log(data, 'search results'));
-    }
+   
 
 
     render() {
@@ -81,7 +92,8 @@ class App extends Component {
             <div className="app">
         <div className="propertyContainer">
           <h1>Property</h1>
-          <Property 
+          <Property
+          searchProperty ={this.searchProperty}
           address={this.state.address} 
           city={this.state.city} 
           state={this.state.state} 
