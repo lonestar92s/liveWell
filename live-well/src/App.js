@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import Property from './Property/Property'
+import LandingPage from './LandingPage/LandingPage'
 import './App.css';
+import {
+    BrowserRouter as Router,
+    Route,
+    NavLink,
+    Switch
+} from 'react-router-dom'
 
 class App extends Component {
     state = {
@@ -10,32 +17,13 @@ class App extends Component {
         zipcode: '',
         estimate: '',
         squareFeet: '',
-        imageUrl: ''
+        bedrooms: '',
+        bathrooms: ''
+        
 
     }
 
-    // getProperty = async () => {
-    //     try {
-    //         const property = await fetch('http://localhost:9000/property');
-    //         const propertyJson = await property.json()
-    //         this.setState({
-    //             address: propertyJson.response.address.street[0],
-    //             city: propertyJson.response.address.city[0],
-    //             state: propertyJson.response.address.state[0],
-    //             zipcode: propertyJson.response.address.zipcode[0],
-    //             estimate: propertyJson.response.zestimate.amount[0]._
-
-
-    //         })
-    //         return propertyJson
-
-    //     } catch (err) {
-    //         console.log(err, 'error in catch block')
-    //         return err
-    //     }
-
-    // }
-
+//images
     getImage = async () => {
         try {
             const property = await fetch('http://localhost:9000/property/pic');
@@ -50,9 +38,9 @@ class App extends Component {
             console.log(err, 'error in catch block')
             return err
         }
-
     }
-    //search 
+
+    //search any address
     searchProperty = async (address, citystatezip) => {
         try {
             const property = await fetch('http://localhost:9000/property/search', {
@@ -74,7 +62,9 @@ class App extends Component {
                 state: propertyJson.response.results.result[0].address[0].state[0],
                 zipcode: propertyJson.response.results.result[0].address[0].zipcode[0],
                 estimate: propertyJson.response.results.result[0].zestimate[0].amount[0]._,
-                squareFeet: propertyJson.response.results.result[0].finishedSqFt[0]
+                squareFeet: propertyJson.response.results.result[0].finishedSqFt[0],
+                bedrooms: propertyJson.response.results.result[0].bedrooms[0],
+                bathrooms: propertyJson.response.results.result[0].bathrooms[0] 
 
             })
             return propertyJson
@@ -90,24 +80,43 @@ class App extends Component {
 
 
     render() {
-        return (
-            <div className="app">
-      <div className="propertyContainer">
-         <h1>Property</h1>
-         <Property
+        const renderProperty = () => {
+            return (
+                <Property
           searchProperty ={this.searchProperty}
           address={this.state.address} 
           city={this.state.city} 
           state={this.state.state} 
           zipcode={this.state.zipcode}
           estimate={this.state.estimate}
-          squareFeet={this.state.squareFeet} />
-        </div>
+          squareFeet={this.state.squareFeet}
+          bedrooms={this.state.bedrooms}
+          bathrooms={this.state.bathrooms} />
+            )
+        }
+
+        return (
+  <Router>        
+    <div className="app">
+          <nav className="Navbar">
+        <ul>
+        <li className="Name"><NavLink to='/'>liveWell</NavLink></li>
+        </ul>
+        <ul className ="Navlinks">
+        <li className="nav-item"><NavLink to='/search'>Find Property</NavLink></li>{' '}
+        </ul>
+        </nav>
+            <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route path='/search' render={renderProperty} />
+            </Switch>
       </div>
+    </Router>
         );
     }
 }
 
+         
 
 
 export default App;
