@@ -9,6 +9,7 @@ class App extends Component {
         state: '',
         zipcode: '',
         estimate: '',
+        squareFeet: '',
         imageUrl: ''
 
     }
@@ -62,8 +63,8 @@ class App extends Component {
                 },
                 body: JSON.stringify({
                     address,
-                    citystatezip 
-                    
+                    citystatezip
+
                 })
             });
             const propertyJson = await property.json()
@@ -72,7 +73,8 @@ class App extends Component {
                 city: propertyJson.response.results.result[0].address[0].city[0],
                 state: propertyJson.response.results.result[0].address[0].state[0],
                 zipcode: propertyJson.response.results.result[0].address[0].zipcode[0],
-                estimate: propertyJson.response.results.result[0].zestimate[0].amount[0]._
+                estimate: propertyJson.response.results.result[0].zestimate[0].amount[0]._,
+                squareFeet: propertyJson.response.results.result[0].finishedSqFt[0]
 
             })
             return propertyJson
@@ -84,22 +86,22 @@ class App extends Component {
 
     }
 
-   
+
 
 
     render() {
         return (
             <div className="app">
-        <div className="propertyContainer">
-          <h1>Property</h1>
-          <Property
+      <div className="propertyContainer">
+         <h1>Property</h1>
+         <Property
           searchProperty ={this.searchProperty}
           address={this.state.address} 
           city={this.state.city} 
           state={this.state.state} 
           zipcode={this.state.zipcode}
           estimate={this.state.estimate}
-          image={this.state.imageUrl} />
+          squareFeet={this.state.squareFeet} />
         </div>
       </div>
         );

@@ -1,7 +1,7 @@
-html{
+.propertyContainer{
   background-size: cover;
-  background-attachment: fixed;
-  background-image: url('/Images/background.jpg');
+  background-attachment: local;
+  background-image: url(/Images/background.jpg);
 }
 .propertyContainer{
   text-align: center

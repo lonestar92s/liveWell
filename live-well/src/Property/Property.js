@@ -30,16 +30,20 @@ export default class Property extends Component {
 
             <div id="info">
         <h3>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(event)=>this.handleSubmit(event)} >
         <input type='text' autoComplete="off" name="address" placeholder="Address" value={this.state.address} onChange={this.handleChange} required="required"  />
         <input type='text' autoComplete="off" name="citystatezip" placeholder="City, State, Zipcode" value={this.state.citystatezip} onChange={this.handleChange} required="required" />
         <input type='submit' value="Search" />
         </form>     
         </h3>
         <h4>Your New Home</h4> 
-        <p>{this.props.address}, {this.props.city}, {this.props.state}, {this.props.zipcode}</p>
+        <div className='homes'>
+        <p>{this.props.address} {this.props.city} {this.props.state} {this.props.zipcode}</p>
+        <p>Square Footage: {this.props.squareFeet}</p>
         <p>Estimated Value: ${Number(this.props.estimate).toLocaleString()}</p>
-        <p><img alt="home pics" src={this.props.image} /></p>
+        <button>Add to favorites</button>
+        </div>
+        
 
          </div>
 
