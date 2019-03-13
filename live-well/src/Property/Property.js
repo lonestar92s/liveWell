@@ -8,7 +8,8 @@ import '../App.css'
 export default class Property extends Component {
     state = {
         address: '',
-        citystatezip: ''
+        citystatezip: '',
+       
     }
 
     handleSubmit = (event) => {
@@ -35,9 +36,9 @@ export default class Property extends Component {
     render() {
         return (
 
-    <div id="info" className='Main'>
+    <section id="info" className='Main'>
         <div className='container'>
-        <form id='form-input' className='ui focus input' onSubmit={(event)=>this.handleSubmit(event)} >
+        <form id='form-input' class='ui focus input' onSubmit={(event)=>this.handleSubmit(event)} >
         <input type='text' autoComplete="off" name="address" placeholder="Address" value={this.state.address} onChange={this.handleChange} required="required"  />
         <input type='text' autoComplete="off" name="citystatezip" placeholder="City, State, Zipcode" value={this.state.citystatezip} onChange={this.handleChange} required="required" />
         <input type='submit' value="Search" />
@@ -47,10 +48,11 @@ export default class Property extends Component {
         <p>Bedrooms: {this.props.bedrooms} Bathrooms: {this.props.bathrooms}</p>
         <p>Square Footage: {this.props.squareFeet}</p>
         <p>Estimated Value: ${Number(this.props.estimate).toLocaleString()}</p>
+        <p>Value change in the last 30 days: ${this.props.valueChange}</p>
         <button>Add to favorites</button>
         </div>
         </div>
-    </div>
+    </section>
 
         )
     }

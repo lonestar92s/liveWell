@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Property from './Property/Property'
 import LandingPage from './LandingPage/LandingPage'
+import HouseMap from './Map/Map'
 import './App.css';
 import {
     BrowserRouter as Router,
@@ -18,7 +19,9 @@ class App extends Component {
         estimate: '',
         squareFeet: '',
         bedrooms: '',
-        bathrooms: ''
+        bathrooms: '',
+        latitude: '',
+        longitude: ''
         
 
     }
@@ -64,7 +67,10 @@ class App extends Component {
                 estimate: propertyJson.response.results.result[0].zestimate[0].amount[0]._,
                 squareFeet: propertyJson.response.results.result[0].finishedSqFt[0],
                 bedrooms: propertyJson.response.results.result[0].bedrooms[0],
-                bathrooms: propertyJson.response.results.result[0].bathrooms[0] 
+                bathrooms: propertyJson.response.results.result[0].bathrooms[0],
+                valueChange: propertyJson.response.results.result[0].zestimate[0].valueChange[0]._,
+                lat: propertyJson.response.results.result[0].address[0].latitude[0],
+                long: propertyJson.response.results.result[0].address[0].longitude[0]
 
             })
             return propertyJson
@@ -91,7 +97,15 @@ class App extends Component {
           estimate={this.state.estimate}
           squareFeet={this.state.squareFeet}
           bedrooms={this.state.bedrooms}
-          bathrooms={this.state.bathrooms} />
+          bathrooms={this.state.bathrooms}
+          valueChange={this.state.valueChange} />
+            )
+        }
+          const renderMap = () => {
+            return (
+                <HouseMap
+          lat={this.state.lat}
+          long={this.state.long} />
             )
         }
 
@@ -104,11 +118,13 @@ class App extends Component {
         </ul>
         <ul className ="Navlinks">
         <li className="nav-item"><NavLink to='/search'>Find Property</NavLink></li>{' '}
+        <li className="nav-item"><NavLink to='/map'>Map</NavLink></li>{' '}
         </ul>
         </nav>
             <Switch>
                 <Route exact path="/" component={LandingPage} />
                 <Route path='/search' render={renderProperty} />
+                <Route path='/map' component={renderMap} />
             </Switch>
       </div>
     </Router>
@@ -116,7 +132,12 @@ class App extends Component {
     }
 }
 
+
          
 
 
 export default App;
+        
+            
+          
+        
