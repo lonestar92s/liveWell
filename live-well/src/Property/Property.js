@@ -38,7 +38,7 @@ export default class Property extends Component {
 
     <section id="info" className='Main'>
         <div className='container'>
-        <form id='form-input' class='ui focus input' onSubmit={(event)=>this.handleSubmit(event)} >
+        <form id='form-input' onSubmit={(event)=>this.handleSubmit(event)} >
         <input type='text' autoComplete="off" name="address" placeholder="Address" value={this.state.address} onChange={this.handleChange} required="required"  />
         <input type='text' autoComplete="off" name="citystatezip" placeholder="City, State, Zipcode" value={this.state.citystatezip} onChange={this.handleChange} required="required" />
         <input type='submit' value="Search" />
