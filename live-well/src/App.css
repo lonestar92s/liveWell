@@ -2,6 +2,19 @@
 	text-align: center
 }
 
+.MapContainer{
+  width: 40%;
+  height: 700px;
+ 
+  background-color: lightblue;
+}
+
+.SearchContainer{
+  width: 40%;
+  padding-top: 2em; 
+  padding-right: 2em;
+  background-color: pink;
+}
 body{
    background-size: cover;
    background-attachment: fixed;
