@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Property from './Property/Property'
 import LandingPage from './LandingPage/LandingPage'
-import HouseMap from './Map/Map'
 import MainContainer from './MainContainer.js'
 import './App.css';
 import {

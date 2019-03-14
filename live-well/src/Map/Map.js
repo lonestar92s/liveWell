@@ -3,7 +3,7 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
   width: '40%',
-  height: '90%'
+  height: '85%'
 };
 
 
@@ -20,21 +20,25 @@ export class HouseMap extends Component {
   // }
   
 render() {
-    const {lat, lng} = this.props
+    // const {lat, lng} = this.props
     return (
-      <div className='Main'>
+      <div>
       <Map
         google={this.props.google}
-        zoom={10}
+        zoom={14}
         style={mapStyles}
         initialCenter={{
-         lat: this.state.lat,
-         lng: this.state.lng 
+          lat: this.props.lat,
+          lng: this.props.lng
+        }}
+        center={{
+         lat: this.props.lat,
+         lng: this.props.lng 
         }}>
       <Marker
     title={'The marker`s title will appear as a tooltip.'}
     name={'SOMA'}
-    position={{lat: this.state.lat, lng: this.state.lng}} />
+    position={{lat: this.props.lat, lng: this.props.lng}} />
       </Map>
       </div>
     );

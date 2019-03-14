@@ -15,10 +15,14 @@ state = {
         bedrooms: '',
         bathrooms: '',
         lat: 30.274545,
-        lng: -97.740751
+        lng: -97.740751,
+        valueChange:'',
+        walkscore: '',
+        bikescore: ''
+    }
+
         
 
-    }
 
 	    searchProperty = async (address, citystatezip) => {
         try {
@@ -35,18 +39,24 @@ state = {
                 })
             });
             const propertyJson = await property.json()
+            console.log(propertyJson)
             this.setState({
-                address: propertyJson.response.results.result[0].address[0].street[0],
-                city: propertyJson.response.results.result[0].address[0].city[0],
-                state: propertyJson.response.results.result[0].address[0].state[0],
-                zipcode: propertyJson.response.results.result[0].address[0].zipcode[0],
-                estimate: propertyJson.response.results.result[0].zestimate[0].amount[0]._,
-                squareFeet: propertyJson.response.results.result[0].finishedSqFt[0],
-                bedrooms: propertyJson.response.results.result[0].bedrooms[0],
-                bathrooms: propertyJson.response.results.result[0].bathrooms[0],
-                valueChange: propertyJson.response.results.result[0].zestimate[0].valueChange[0]._,
-                lat: propertyJson.response.results.result[0].address[0].latitude[0],
-                lng: propertyJson.response.results.result[0].address[0].longitude[0]
+                address: propertyJson.results.response.results.result[0].address[0].street[0],
+                city: propertyJson.results.response.results.result[0].address[0].city[0],
+                state: propertyJson.results.response.results.result[0].address[0].state[0],
+                zipcode: propertyJson.results.response.results.result[0].address[0].zipcode[0],
+                estimate: propertyJson.results.response.results.result[0].zestimate[0].amount[0]._,
+                squareFeet: propertyJson.results.response.results.result[0].finishedSqFt[0],
+                bedrooms: propertyJson.results.response.results.result[0].bedrooms[0],
+                bathrooms: propertyJson.results.response.results.result[0].bathrooms[0],
+                valueChange: propertyJson.results.response.results.result[0].zestimate[0].valueChange[0]._,
+                lat: propertyJson.results.response.results.result[0].address[0].latitude[0],
+                lng: propertyJson.results.response.results.result[0].address[0].longitude[0],
+                walkscore: propertyJson.walksults.walkscore,
+                walkscoreDescription: propertyJson.walksults.description,
+                walkscoreLogo: propertyJson.walksults.logo_url,
+                bikescore: propertyJson.walksults.bike.score,
+                bikescoreDescription: propertyJson.walksults.bike.description
 
             })
             return propertyJson
@@ -57,6 +67,12 @@ state = {
         }
 
     }
+
+
+              
+
+
+
 	render(){
 		return(
 			<div className='Main'>
@@ -76,7 +92,12 @@ state = {
           squareFeet={this.state.squareFeet}
           bedrooms={this.state.bedrooms}
           bathrooms={this.state.bathrooms}
-          valueChange={this.state.valueChange} />
+          valueChange={this.state.valueChange}
+          walkscore={this.state.walkscore}
+          walkscoreDescription={this.state.walkscoreDescription}
+          bikescore={this.state.bikescore}
+          bikescoreDescription={this.state.bikescoreDescription}
+          walkscoreLogo={this.state.walkscoreLogo} />
 			</div>
 			</div>
 
