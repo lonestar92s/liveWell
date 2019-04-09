@@ -25,7 +25,7 @@ body{
   display: flex;
   justify-content: space-between;
   background-color: black;
-  font-size: 23px;
+  font-size: 20px;
   color: white;
   padding-left: 0px;
   position: absolute; /* Set the navbar to fixed position */

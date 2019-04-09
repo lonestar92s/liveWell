@@ -14,8 +14,8 @@ state = {
         squareFeet: '',
         bedrooms: '',
         bathrooms: '',
-        lat: 30.274545,
-        lng: -97.740751,
+        lat: 41.881832,
+        lng: -87.623177,
         valueChange:'',
         walkscore: '',
         bikescore: ''
@@ -68,21 +68,16 @@ state = {
 
     }
 
-
-              
-
-
-
 	render(){
 		return(
-			<div className='Main'>
-			<div className='MapContainer'>
+		<div className='Main'>
+			  <div className='MapContainer'>
 			      <HouseMap
           lat={this.state.lat}
           lng={this.state.lng} />
-			</div>
-			<div className='SearchContainer'>
-			<Property
+			   </div>
+			 <div className='SearchContainer'>
+			   <Property
           searchProperty ={this.searchProperty}
           address={this.state.address} 
           city={this.state.city} 
@@ -98,10 +93,14 @@ state = {
           bikescore={this.state.bikescore}
           bikescoreDescription={this.state.bikescoreDescription}
           walkscoreLogo={this.state.walkscoreLogo} />
-			</div>
-			</div>
+			 </div>
+		</div>
 
 
-			)
+		  )
 	}
 }
+
+              
+
+
